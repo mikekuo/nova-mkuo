@@ -2,8 +2,7 @@
 This is a sample exercise for Bryan Pirtle and Mike Kuo.
 Exercise instructions: https://goo.gl/kfhfgf
 
-## API Access
-There is one endpoint and it only accepts a HTTP POST request
+There is one API endpoint and it only accepts a HTTP POST request at
 `https://nova-mkuo.herokuapp.com/`
 
 ## Example requests and responses
