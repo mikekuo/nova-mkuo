@@ -38,6 +38,17 @@ curl -X POST \
 https://nova-mkuo.herokuapp.com/
 ```
 
+## Storing tokens client-side
+### Problems with local storage
+The biggest risk is that the client's token storage can be breached or the client machine is attacked with a CSRF attack, allowing a hacker to access the client's user account. We can mitigate this risk a few ways:
+- Add 2-factor authentication for suspicious requests (based on geography, frequency, etc.)
+- Include a time expiry on tokens
+- Restrict cross origin requests (CORS)
+- Don't store local tokens at all
+
+### Suggested method
+For Nova, it sounds like the average user uses the application frequently and, therefore, requiring constant re-authentication would create a very poor user experience. With that said, I propose storing the token in a cookie that is transmitted through https and without CORS.
+
 ## Out of scope of this exercise
 Here's a list of potential edge cases and potential improvements not addressed in this exercise (in no particular order):
 - Currently no catch if email and user_id in a request do not match the same user
