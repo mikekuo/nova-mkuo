@@ -27,7 +27,7 @@ curl -X POST \
 https://nova-mkuo.herokuapp.com/
 ```
 
-If you change the authorization header and data parameters, you can expect either a 400 response for malformed parameters or 403 response for unauthorized access.
+A successful 200 response will return the User object and, if accessible for that user, the corresponding team object. If you change the authorization header and data parameters, you can expect either a 400 response for malformed parameters or 403 response for unauthorized access.
 
 ### Creating a user
 Similar to accessing user data, but access with a new email address. For example:
