@@ -23,7 +23,11 @@ class ApplicationController < ActionController::API
   end
 
   def show
-    render json: @user, status: 200
+    resp = @user.attributes
+    if @user.team_access # Show team information if user has team_access
+      resp.merge!(team: @user.team.attributes)
+    end
+    render json: resp, status: 200
   end
 
   def create_user
