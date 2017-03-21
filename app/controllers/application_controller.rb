@@ -15,10 +15,16 @@ class ApplicationController < ActionController::API
   def authenticate
     @email = params[:email]
     @user_id = params[:user_id]
-    render_malformed if params[:email] == nil && params[:user_id] == nil
+    if params[:email] == nil && params[:user_id] == nil
+      render_malformed
+      return
+    end
 
     @token = request.headers["Authorization"]
-    render_unauthorized if @token == nil
+    if @token == nil
+      render_unauthorized
+      return
+    end
     @user = User.where(token: @token, email: @email).first
   end
 
@@ -33,10 +39,12 @@ class ApplicationController < ActionController::API
   def create_user
     if User.where(email: @email).any? # Restrict creating user with same email
       render_unauthorized
+      return
     else
       user = User.new(email: @email)
       user.save
       render_user(user)
+      return
     end
   end
 
