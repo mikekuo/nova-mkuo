@@ -1,23 +1,33 @@
 class ApplicationController < ActionController::API
 
-  before_action :check_params
+  before_action :authenticate
 
   def index
-    if @user.nil?
+    if @user.nil? # New user request since existing user not found
       create_user
+    else
+      show
     end
   end
 
   protected
 
-  def check_params
+  def authenticate
     @email = params[:email]
     @user_id = params[:user_id]
     render_malformed if params[:email] == nil && params[:user_id] == nil
+
+    @token = request.headers["Authorization"]
+    render_unauthorized if @token == nil
+    @user = User.where(token: @token, email: @email).first
+  end
+
+  def show
+    render json: @user, status: 200
   end
 
   def create_user
-    if User.where(email: @email).any?
+    if User.where(email: @email).any? # Restrict creating user with same email
       render_unauthorized
     else
       user = User.new(email: @email)
