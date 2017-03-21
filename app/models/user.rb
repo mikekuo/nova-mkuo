@@ -1,3 +1,4 @@
 class User < ApplicationRecord
-  belongs_to :team
+  include Tokenable
+  belongs_to :team, optional: true
 end
