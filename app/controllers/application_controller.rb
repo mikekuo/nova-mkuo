@@ -2,20 +2,28 @@ class ApplicationController < ActionController::API
 
   before_action :check_params
 
-  def create
-    if User.where(email: params[:email]).any?
-      render_unauthorized
-    else
-      user = User.new(email: params[:email])
-      user.save
-      render_user(user)
+  def index
+    if @user.nil?
+      create_user
     end
   end
 
   protected
 
   def check_params
+    @email = params[:email]
+    @user_id = params[:user_id]
     render_malformed if params[:email] == nil && params[:user_id] == nil
+  end
+
+  def create_user
+    if User.where(email: @email).any?
+      render_unauthorized
+    else
+      user = User.new(email: @email)
+      user.save
+      render_user(user)
+    end
   end
 
   def render_malformed

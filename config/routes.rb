@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  post '/' => "application#create", as: "root"
+  post '/' => "application#index", as: "root"
 end
