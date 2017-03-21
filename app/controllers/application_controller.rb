@@ -41,7 +41,7 @@ class ApplicationController < ActionController::API
       render_unauthorized
       return
     else
-      user = User.new(email: @email)
+      user = User.new(email: @email, name: params[:name])
       user.save
       render_user(user)
       return
