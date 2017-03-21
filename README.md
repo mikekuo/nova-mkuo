@@ -8,7 +8,7 @@ There is one API endpoint and it only accepts a HTTP POST request at
 ## Example requests and responses
 
 ### Accessing user data
-Bryan Pirtle is associated with a team and has access to view team data:
+User("Bryan Pirtle") is associated with a team and has access to view team data:
 ```
 curl -X POST \
 -H "Content-Type: application/json" \
@@ -17,7 +17,7 @@ curl -X POST \
 https://nova-mkuo.herokuapp.com/
 ```
 
-Mike Kuo is associated with a team and but has no access to view team data:
+User("Mike Kuo") is associated with a team and but has no access to view team data:
 ```
 curl -X POST \
 -H "Content-Type: application/json" \
@@ -51,7 +51,6 @@ For Nova, it sounds like the average user uses the application frequently and, t
 ## Out of scope of this exercise
 Here's a list of potential edge cases and potential improvements not addressed in this exercise (in no particular order):
 - Currently no catch if email and user_id in a request do not match the same user
-- May want tokens to have time expiration, especially if user account not accessed for a long span of time
 - Currently no parameter validation during user creation
 - When creating a user, API does not expose user values except for name and email
 - Currently, a User belongs to a Team. In practice, a User may have many Teams (has and belongs to many)
