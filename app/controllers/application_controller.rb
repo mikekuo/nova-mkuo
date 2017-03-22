@@ -21,11 +21,9 @@ class ApplicationController < ActionController::API
     end
 
     @token = request.headers["Authorization"]
-    if @token == nil
-      render_unauthorized
-      return
+    if @token != nil
+      @user = User.where(token: @token, email: @email).first
     end
-    @user = User.where(token: @token, email: @email).first
   end
 
   def show
